@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <form
+        action="{% url 'main_app:upload' %}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <div><input type="file" required name="file" /></div>
+
+        <div><input type="submit" value="submit" /></div>
+      </form>
+
+      <div>
+        {% for file in files %}
+        <div>
+          <a href="{% url 'main_app:analysis' file.pk %}">{{file.title}}</a>
+          <a href="{% url 'main_app:delete' file.pk %}">Delete</a>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
